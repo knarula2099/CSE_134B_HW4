@@ -9,6 +9,8 @@
     --primary-heading-text-color: color(srgb 1 0 0 / 1);
     --secondary-heading-text-color: rgb(90, 27, 25);
     --paragraph-text-color: rgb(251, 206, 177);
+    --info-color: rgba(8, 124, 8, 0.705);
+    --error-color: rgba(161, 17, 17, 0.692);
 }
 
 * {
@@ -346,17 +348,17 @@ iframe {
     border-radius: 1dvw;
 }
 
-form * {
+#contact * {
     box-sizing: border-box;
     line-height: 1.5;
 }
 
-form legend {
+#contact legend {
     font-size: 2rem;
     font-weight: bold;
 }
 
-form fieldset {
+#contact fieldset {
     border: 0;
     padding: 0;
     display: flex;
@@ -364,7 +366,16 @@ form fieldset {
     width: max-content;
 }
 
-#btn {
+input, textarea {
+    padding: 0.5em 0.5em;
+    border-radius: 0.5em;
+    border: 1px solid var(--paragraph-text-color, rgb(255, 255, 255));
+    background-color: var(--primary-section-color, rgb(78, 15, 15));
+    color: var(--paragraph-text-color, rgb(255, 255, 255));
+    margin: 0.5em 0;
+}
+
+.btn {
     padding: 0.5em 0.5em;
     border-radius: 0.5em;
 
@@ -375,3 +386,83 @@ form fieldset {
     }
 }
 
+#demo {
+    background-color: var(--secondary-section-color, rgb(99, 93, 93));
+    border-radius: 1dvw;
+    padding: 1dvw;
+    width: 70dvw;
+    align-items: center;
+}
+
+#demo fieldset {
+    border: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.required::after {
+    content: '*';
+    color: red;
+    margin-left: 0.2em; /* Adjust spacing between label and asterisk */
+}
+
+label.required {
+    color: white;
+    font-weight: bold;
+}
+
+output {
+    color: white;
+    font-style: italic;
+    font-size: small;
+    border-radius: 1dvw;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    width: 30dvw;
+}
+
+.info {
+    background-color: var(--info-color, rgb(0, 255, 0));
+}
+
+.info::before {
+    content: 'ℹ️';
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.error {
+    background-color: var(--error-color, rgb(255, 0, 0));
+}
+
+.error::before {
+    content: '⚠️';
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.info-error-message {
+    display: none;
+}
+ input:invalid + .info-error-message,
+ textarea:invalid + .info-error-message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ }
+
+ input:valid, textarea:valid{
+    border: 1px solid var(--paragraph-text-color, rgb(255, 255, 255));
+    background-color: var(--info-color, rgb(78, 15, 15));
+    color: var(--paragraph-text-color, rgb(255, 255, 255));
+ }
