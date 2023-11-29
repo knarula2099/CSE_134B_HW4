@@ -1,13 +1,16 @@
-// Check if a theme preference is stored in localStorage
-let isDarkMode = localStorage.getItem('theme') === 'dark';
+function setTheme(themeName) {
+    const body = document.body;
+  
+    body.classList.remove('dark-mode', 'light-mode');
+    body.classList.add(`${themeName}-mode`);
+}
+  
+function updateLogo(isDarkMode) {
+    const icon = document.getElementById('sun-and-moon');
+    icon.innerHTML = isDarkMode ? '🌙' : '☀️';
+}
 
-// Apply the initial theme based on localStorage or default to 'light'
-setTheme(isDarkMode ? 'dark' : 'light');
 
-// Set the initial logo based on the theme
-updateLogo(isDarkMode);
-
-// Function to toggle between light and dark themes
 function toggleTheme() {
   const body = document.body;
 
@@ -19,34 +22,40 @@ function toggleTheme() {
     isDarkMode = true;
   }
 
-  // Save the theme preference to localStorage
   localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 
-  // Update the logo based on the theme
   updateLogo(isDarkMode);
 }
 
-// Function to apply the selected theme
-function setTheme(themeName) {
-  const body = document.body;
+let isDarkMode = localStorage.getItem('theme') === 'dark';
 
-  body.classList.remove('dark-mode', 'light-mode');
-  body.classList.add(`${themeName}-mode`);
-}
+setTheme(isDarkMode ? 'dark' : 'light');
 
-// Function to update the logo based on the theme
-function updateLogo(isDarkMode) {
-  const icon = document.getElementById('sun-and-moon');
-  icon.innerHTML = isDarkMode ? '🌙' : '☀️';
-}
+updateLogo(isDarkMode);
 
 var formErrors = []
+
+function displayMessage(elementId, message, type) {
+    var output = document.getElementById(elementId);
+    output.textContent = message;
+
+    if (type === 'error') {
+        var validationMessage = output.closest('.error-message');
+    }
+    else if (type === 'info') {
+        var validationMessage = output.closest('.info-message');
+    }
+    if (message.trim() !== '') {
+        validationMessage.style.display = 'block';
+    } else {
+        validationMessage.style.display = 'none';
+    }
+}
 
 function validateForm(event) {
     var form = document.getElementById('demo');
     var nameInput = form.elements['name'];
 
-    console.log('hello')
     if (nameInput.validity.valueMissing) {
         displayMessage('name-error', 'Please enter your name.', 'error');
         displayMessage('name-info', 'Name should not be empty and contain only alphabets', 'info');
@@ -54,7 +63,6 @@ function validateForm(event) {
     } else if (!nameInput.checkValidity()) {
         displayMessage('name-error', 'Please enter a valid name.', 'error');
         displayMessage('name-info', 'Name should not contain numbers or special characters', 'info');
-        console.log(nameInput.value)
         formErrors.push(nameInput.value);
     } else {
         displayMessage('name-error', '', 'error');
@@ -70,13 +78,10 @@ function validateForm(event) {
         displayMessage('email-error', 'Please enter a valid email address.', 'error');
         displayMessage('email-info', 'Email should be in the format: foo@bar.com', 'info');
         formErrors.push(emailInput.value);
-        console.log(emailInput.value)
     } else {
         displayMessage('email-error', '', 'error');
         displayMessage('email-info', '', 'info');
     }
-
-    console.log(formErrors)
 
 
     var commentsInput = form.elements['comments'];
@@ -93,7 +98,6 @@ function validateForm(event) {
         displayMessage('comments-info', '', 'info');
     }
 
-    console.log(formErrors)
     if (!form.checkValidity()) {
         // Prevent form submission if there are validation errors
         event.preventDefault();
@@ -108,23 +112,6 @@ function validateForm(event) {
 
         form.appendChild(hiddenInput);
         return true;    
-    }
-}
-
-function displayMessage(elementId, message, type) {
-    var output = document.getElementById(elementId);
-    output.textContent = message;
-
-    if (type === 'error') {
-        var validationMessage = output.closest('.error-message');
-    }
-    else if (type === 'info') {
-        var validationMessage = output.closest('.info-message');
-    }
-    if (message.trim() !== '') {
-        validationMessage.style.display = 'block';
-    } else {
-        validationMessage.style.display = 'none';
     }
 }
 
@@ -160,7 +147,6 @@ function validateName(event) {
     var validationMessageContainer = validationMessage.closest('.error-message');
 
     if (!pattern.test(lastChar)) {
-        console.log('invalid' + lastChar)
         validationMessage.textContent = 'Name should not contain numbers or special characters';
         validationMessageContainer.style.display = 'block'; 
         input.classList.add('invalid-input'); // Add the invalid-input class
@@ -180,8 +166,7 @@ function validateEmail(event) {
     var validationMessageContainer = validationMessage.closest('.error-message');
 
     if (!pattern.test(email)) {
-        console.log('invalid' + email)
-        input.setAttribute('background-color', 'red')
+        input.setAttribute('background-color', 'red');
         input.classList.add('invalid-input'); 
         validationMessage.textContent = 'Invalid email format';
         validationMessageContainer.style.display = 'block'; 
@@ -201,7 +186,6 @@ function validateComments(event) {
     var validationMessageContainer = validationMessage.closest('.error-message');
 
     if (!pattern.test(lastChar)) {
-        console.log('invalid' + lastChar)
         input.classList.add('invalid-input');
         validationMessage.textContent = 'Name should not contain numbers or special characters';
         validationMessageContainer.style.display = 'block'; 
