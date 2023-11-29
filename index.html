@@ -9,6 +9,14 @@
         <title>Karan's CSE 134B Personal Portfolio</title>
         <link href="images/favicon.ico" rel="icon">
         <link rel="stylesheet" type="text/css" href="style.css">
+        <noscript>
+            <style>
+              #toggle {
+                display: none;
+              }
+            </style>
+        </noscript>
+        <script src="script.js" defer></script>
     </head>
     <body>
         <header>
@@ -25,6 +33,9 @@
                     <li><a href="#Contact-Me">Contact Me</a></li>
                 </ol>
             </nav>
+            <button id="toggle" onclick="toggleTheme()">
+                <p id="sun-and-moon">🌙</p>
+            </button>
         </header>
         <main>
             <div id="intro-dynamic">
@@ -242,7 +253,7 @@
                     </pre>
                 </details>
             </section>
-            <section id="Contact-Me" class="contact">
+            <section id="Contact-Me" class="secondary">
                 <h2>Contact Me</h2>
                 <form id="contact">
                     <fieldset>
@@ -283,34 +294,43 @@
                     </fieldset>   
                 </form>
             </section>
-            <section>
+            <section id="demo-form">
                 <h2>Demo Form</h2>
                 <form action="https://httpbin.org/post" method="POST" id="demo">
                     <fieldset>
                         <label for="name" class="required">Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name..." required pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+                        <input type="text" id="name" name="name" placeholder="Your Name..." required pattern="[A-Za-z ]+" onkeydown="validateName(event)">
                         <div class="info-error-message">
-                            <output for="name" class="error">The field Name is required</output>
-                            <output for="name" class="info">This field requires you to input a name</output>
+                            <div class="error-message">
+                                <output for="name" class="error" id="name-error"></output>
+                            </div>
+                            <div class="info-message">
+                                <output for="name" class="info" id="name-info"></output>
+                            </div>
                         </div>
-                        <br>
                         <label for="email" class="required">Email Address:</label>
-                        <input type="email" id="email" name="email" placeholder="Your Email..." required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                        <input type="email" id="email" name="email" placeholder="Your Email..." required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" onforminput="validateEmail(event)">
                         <div class="info-error-message">
-                            <output for="name" class="error">The field Email Address is required</output>
-                            <output for="name" class="info">This field requires a valid email address with an '@' symbol</output>
+                            <div class="error-message">
+                                <output for="email" class="error" id="email-error"></output>
+                            </div>
+                            <div class="info-message">
+                                <output for="email" class="info" id="email-info"></output>
+                            </div>
                         </div>
-                        <br>
                         <label for="comments" class="required">Comments:</label>
-                        <br>
-                        <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Your Comments..." required  maxlength="500" pattern="[A-Za-z0-9.,'\"!? ]+"></textarea>
+                        <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Your Comments..." required  minlength="3" maxlength="500" onkeyup="countWords(this)" onkeydown="validateComments(event)"></textarea>
                         <div class="info-error-message">
-                            <output for="name" class="error">The field Comments is required</output>
-                            <output for="name" class="info">This field requires you to share some comments</output>
+                            <div class="error-message">
+                                <output for="comments" class="error" id="comments-error"></output>
+                            </div>
+                            <div class="info-message">
+                                <output for="comments" class="info" id="comments-info"></output>
+                            </div>
                         </div>
                         <br>
                         <input type="hidden" name="possible_bot" value="true">
-                        <button type="submit" value="Submit" class="btn">Submit</button>
+                        <button type="submit" value="Submit" class="btn" onclick="validateForm(event)">Submit</button>
                     </fieldset>   
                 </form>
             </section>

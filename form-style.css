@@ -11,9 +11,6 @@
     --paragraph-text-color: rgb(251, 206, 177);
     --info-color: rgba(8, 124, 8, 0.705);
     --error-color: rgba(161, 17, 17, 0.692);
-
-    --main-bg-color-light: rgb(255, 255, 255);
-    -paragraph-text-color-light:  rgb(228, 109, 30);
 }
 
 * {
@@ -33,11 +30,6 @@ body {
     line-break: strict;
     display: flex;
     flex-direction: column;
-}
-
-body.light-mode {
-    background-color: var(--main-bg-color-light, rgb(255, 255, 255));
-    color: var(--paragraph-text-color-light, rgb(228, 109, 30));
 }
 
 h1, h2, h3{
@@ -128,18 +120,6 @@ nav li {
         color: var(--heading-text-color, rgb(255, 8, 0));
     }
 } 
-
-
-#toggle {
-    background-color: var(--aside-bg-color, rgb(81, 77, 77));
-    border-radius: 1dvh;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    width: max-content;
-    font-size: larger;
-}
 
 #intro-dynamic {
     background-image: url('/images/karan_profile.jpg');
@@ -432,21 +412,6 @@ label.required {
     font-weight: bold;
 }
 
-.info-error-message {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.info-message {
-    display: none;
-}
-
-.error-message {
-    display: none;
-}
-
 output {
     color: white;
     font-style: italic;
@@ -461,6 +426,18 @@ output {
     width: 30dvw;
 }
 
+.info {
+    background-color: var(--info-color, rgb(0, 255, 0));
+}
+
+.info::before {
+    content: 'ℹ️';
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
 .error {
     background-color: var(--error-color, rgb(255, 0, 0));
 }
@@ -473,14 +450,19 @@ output {
     margin-right: 0.5em;
 }
 
-.info {
-    background-color: var(--info-color, rgb(0, 255, 0));
+.info-error-message {
+    display: none;
 }
+ input:invalid + .info-error-message,
+ textarea:invalid + .info-error-message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ }
 
-.info::before {
-    content: 'ℹ️';
-    color: white;
-    font-weight: bold;
-    display: inline-block;
-    margin-right: 0.5em;
-}
+ input:valid, textarea:valid{
+    border: 1px solid var(--paragraph-text-color, rgb(255, 255, 255));
+    background-color: var(--info-color, rgb(78, 15, 15));
+    color: var(--paragraph-text-color, rgb(255, 255, 255));
+ }
