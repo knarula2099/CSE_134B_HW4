@@ -288,14 +288,14 @@
                 <form action="https://httpbin.org/post" method="POST" id="demo">
                     <fieldset>
                         <label for="name" class="required">Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name..." required pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$">
+                        <input type="text" id="name" name="name" placeholder="Your Name..." required pattern="[A-Za-z ]+">
                         <div class="info-error-message">
                             <output for="name" class="error">The field Name is required</output>
                             <output for="name" class="info">This field requires you to input a name</output>
                         </div>
                         <br>
                         <label for="email" class="required">Email Address:</label>
-                        <input type="email" id="email" name="email" placeholder="Your Email..." required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                        <input type="email" id="email" name="email" placeholder="Your Email..." required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                         <div class="info-error-message">
                             <output for="name" class="error">The field Email Address is required</output>
                             <output for="name" class="info">This field requires a valid email address with an '@' symbol</output>
@@ -303,7 +303,7 @@
                         <br>
                         <label for="comments" class="required">Comments:</label>
                         <br>
-                        <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Your Comments..." required  maxlength="500" pattern="[A-Za-z0-9.,'\"!? ]+"></textarea>
+                        <input id="comments" name="comments" rows="4" cols="50" placeholder="Your Comments..." required  maxlength="500" pattern="[A-Za-z0-9 ]+"></textarea>
                         <div class="info-error-message">
                             <output for="name" class="error">The field Comments is required</output>
                             <output for="name" class="info">This field requires you to share some comments</output>
