@@ -163,14 +163,12 @@ function validateName(event) {
         console.log('invalid' + lastChar)
         validationMessage.textContent = 'Name should not contain numbers or special characters';
         validationMessageContainer.style.display = 'block'; 
+        input.classList.add('invalid-input'); // Add the invalid-input class
         event.preventDefault();
         setTimeout(function() {
             validationMessageContainer.style.display = 'none';
+            input.classList.remove('invalid-input'); 
         }, 2000);
-    } else {
-        console.log('valid' + lastChar)
-        validationMessage.textContent = '';
-        validationMessageContainer.style.display = 'none';
     }
 }
 
@@ -183,37 +181,34 @@ function validateEmail(event) {
 
     if (!pattern.test(email)) {
         console.log('invalid' + email)
+        input.setAttribute('background-color', 'red')
+        input.classList.add('invalid-input'); 
         validationMessage.textContent = 'Invalid email format';
         validationMessageContainer.style.display = 'block'; 
 
         setTimeout(function() {
             validationMessageContainer.style.display = 'none';
-        }, 2000);
-    } else {
-        console.log('valid' + email)
-        validationMessage.textContent = '';
-        validationMessageContainer.style.display = 'none';
+            input.classList.remove('invalid-input');
+        }, 1000);
     }
 }
 
 function validateComments(event) {
     var input = event.target;
-    var lastChar = event.key; // Get the character associated with the key that was just pressed
+    var lastChar = event.key; 
     var pattern = /^[a-zA-Z0-9\s]+$/;
     var validationMessage = document.getElementById('comments-error');
     var validationMessageContainer = validationMessage.closest('.error-message');
 
     if (!pattern.test(lastChar)) {
         console.log('invalid' + lastChar)
+        input.classList.add('invalid-input');
         validationMessage.textContent = 'Name should not contain numbers or special characters';
         validationMessageContainer.style.display = 'block'; 
         event.preventDefault();
         setTimeout(function() {
             validationMessageContainer.style.display = 'none';
+            input.classList.remove('invalid-input');
         }, 2000);
-    } else {
-        console.log('valid' + lastChar)
-        validationMessage.textContent = '';
-        validationMessageContainer.style.display = 'none';
     }
 }

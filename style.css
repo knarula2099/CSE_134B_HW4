@@ -390,11 +390,20 @@ input, textarea {
     padding: 0.5em 0.5em;
     border-radius: 0.5em;
     border: 1px solid var(--paragraph-text-color, rgb(255, 255, 255));
-    background-color: var(--primary-section-color, rgb(78, 15, 15));
+    background-color: var(--primary-section-color, rgb(255, 8, 0));
     color: var(--paragraph-text-color, rgb(255, 255, 255));
     margin: 0.5em 0;
 }
 
+@keyframes flash {
+    0% {background-color: transparent;}
+    50% {background-color: red;}
+    100% {background-color: transparent;}
+}
+
+.invalid-input {
+    animation: flash 0.5s linear infinite;
+}
 .btn {
     padding: 0.5em 0.5em;
     border-radius: 0.5em;
